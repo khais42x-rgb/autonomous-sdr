@@ -22,12 +22,20 @@ s_out, _ = run_strategy(StrategyInput(
 ))
 print(f"   -> Action: {s_out.action} via {s_out.channel} ({s_out.reason})")
 
-print("4. Personalising Email...")
+print("4. Personalising Email (Visual Tier)...")
 p_out, _ = run_personalisation(PersonalisationInput(
-    campaign_name="BFSI Voice", prospect_name="Rajesh Kumar", prospect_role="CIO", company_name="HDFC Bank",
-    research_facts=r_out.company_summary, intent=s_out.intent, channel=s_out.channel
+    campaign_name="BFSI Voice", 
+    prospect_name="Rajesh Kumar", 
+    prospect_role="CIO", 
+    company_name="HDFC Bank",
+    research_facts=r_out.company_summary, 
+    intent=s_out.intent, 
+    channel=s_out.channel,
+    personalization_tier="visual"  # <-- NEW: Requesting visual tier
 ))
-print(f"   Subject: {p_out.subject}\n   Body Preview: {p_out.body[:120]}...")
+print(f"   Tier:    {p_out.personalization_tier}")
+print(f"   Subject: {p_out.subject}")
+print(f"   Visual:  {p_out.visual_asset}")
 
 print("5. Fact-Checking Draft (Grounding Check)...")
 g_out, _ = check_grounding(
